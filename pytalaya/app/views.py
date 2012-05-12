@@ -8,6 +8,10 @@ def home(request):
     '''Home page.'''
     return render(request, 'home.html', {})
 
+def contact(request):
+    '''Contact page.'''
+    return render(request, 'contact.html', {})
+
 def new_team(request):
     '''Create new team.'''
     if request.method == 'POST':

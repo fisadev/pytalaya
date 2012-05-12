@@ -7,6 +7,7 @@ admin.autodiscover()
 # normal views
 urlpatterns = patterns('app.views',
     url(r'^$', 'home', name='home'),
+    url(r'^contact/$', 'contact', name='contact'),
 
     url(r'^new_team/$', 'new_team', name='new_team'),
     url(r'^join_team/$', 'join_team', name='join_team'),
@@ -14,6 +15,10 @@ urlpatterns = patterns('app.views',
     url(r'^team_status/$', 'team_status', name='team_status'),
     url(r'^team_settings/$', 'team_settings', name='team_settings'),
     url(r'^my_status/$', 'my_status', name='my_status'),
+)
+
+urlpatterns += patterns('django.views.generic.simple',
+    url(r'^about/$', 'direct_to_template', {'template': 'about.html'}, name='about'),
 )
 
 # ajax views
