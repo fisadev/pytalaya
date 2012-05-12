@@ -39,7 +39,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">Pytalaya</a>
+          <a class="brand" href="{% url home %}">Pytalaya</a>
           {% if user.is_authenticated %}
               <div class="btn-group pull-right">
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -47,9 +47,9 @@
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="/account_settings">Account settings</a></li>
+                    <li><a href="{% url account %}">My Account</a></li>
                   <li class="divider"></li>
-                  <li><a href="/logout">Sign Out</a></li>
+                  <li><a href="{% url logout %}">Sign Out</a></li>
                 </ul>
               </div>
           {% else %}
@@ -59,17 +59,17 @@
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="/login">Sign In</a></li>
+                    <li><a href="{% url login %}">Sign In</a></li>
                   <li class="divider"></li>
-                  <li><a href="/register">Create Account</a></li>
+                  <li><a href="#">Create Account</a></li>
                 </ul>
               </div>
           {% endif %}
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li><a href="/about">About</a></li>
-              <li><a href="/contact">Contact</a></li>
+                <li class="active"><a href="{% url home %}">Home</a></li>
+              <li><a href="{% url about %}">About</a></li>
+              <li><a href="{% url contact %}">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

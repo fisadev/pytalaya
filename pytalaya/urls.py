@@ -9,7 +9,7 @@ urlpatterns = patterns('app.views',
     url(r'^$', 'home', name='home'),
     url(r'^contact/$', 'contact', name='contact'),
 
-    url(r'^account/$', 'account', name='contact'),
+    url(r'^account/$', 'account', name='account'),
 
     url(r'^new_team/$', 'new_team', name='new_team'),
     url(r'^join_team/$', 'join_team', name='join_team'),
@@ -23,8 +23,8 @@ urlpatterns = patterns('app.views',
 # django views urls
 urlpatterns += patterns('django',
     url(r'^about/$', 'views.generic.simple.direct_to_template', {'template': 'about.html'}, name='about'),
-    url(r'^login/$', 'contrib.auth.views.login', {'template_name': 'login.html'}),
-
+    url(r'^login/$', 'contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
+    url(r'^logout/$', 'contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
 )
 
 # ajax views
