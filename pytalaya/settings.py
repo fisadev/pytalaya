@@ -148,19 +148,6 @@ LOGGING = {
     }
 }
 
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'
-
-# TODO register facebook app
-FACEBOOK_CALLBACK = 'http://pytalaya_site/facebook_login/'
-FACEBOOK_ID = ''
-FACEBOOK_KEY = ''
-FACEBOOK_SECRET = ''
-
-# TODO register twitter app
-TWITTER_CALLBACK = 'http://pytalaya_site/twitter_login/'
-TWITTER_KEY = ''
-TWITTER_SECRET = ''
 
 try:
     from local_settings import *

@@ -40,31 +40,6 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="{% url home %}">Pytalaya</a>
-          {% if user.is_authenticated %}
-              <div class="btn-group pull-right">
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                  <i class="icon-user"></i>{{ user.username }}
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="{% url account %}">My Account</a></li>
-                  <li class="divider"></li>
-                  <li><a href="{% url logout %}">Sign Out</a></li>
-                </ul>
-              </div>
-          {% else %}
-              <div class="btn-group pull-right">
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                  <i class="icon-user"></i>Welcome!
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="{% url login %}">Sign In</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Create Account</a></li>
-                </ul>
-              </div>
-          {% endif %}
           <div class="nav-collapse">
             <ul class="nav">
                 <li class="active"><a href="{% url home %}">Home</a></li>
