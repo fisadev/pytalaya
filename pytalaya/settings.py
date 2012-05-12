@@ -149,6 +149,7 @@ LOGGING = {
 }
 
 LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
 
 # TODO register facebook app
 FACEBOOK_CALLBACK = 'http://pytalaya_site/facebook_login/'
