@@ -148,6 +148,8 @@ LOGGING = {
     }
 }
 
+LOGIN_URL = '/login/'
+
 # TODO register facebook app
 FACEBOOK_CALLBACK = 'http://pytalaya_site/facebook_login/'
 FACEBOOK_ID = ''
