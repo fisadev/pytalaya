@@ -51,14 +51,18 @@
       </div>
     </div>
 
-    <div class="container">
-      {% block content %}
-      {% endblock %}
+    <div class="container-fluid">
+      <div class="row-fluid">
+        {% block content %}
+        {% endblock %}
+      </div>
 
-      <p>Developed using <a href="http://www.python.org">Python</a> and
-        <a href="http://www.djangoproject.com">Django</a>
-        - <a href="https://github.com/fisadev/pytalaya">project home</a>
-      </p>
+      <div class="row-fluid">
+        <p>Developed using <a href="http://www.python.org">Python</a> and
+          <a href="http://www.djangoproject.com">Django</a>
+          - <a href="https://github.com/fisadev/pytalaya">project home</a>
+        </p>
+      </div>
     </div> <!-- /container -->
 
     <!-- Le javascript
