@@ -11,6 +11,7 @@ class Team(models.Model):
 
     admin_password = models.CharField(max_length=100, blank=True)
     member_password = models.CharField(max_length=100, blank=True)
+    recovery_email = models.CharField(max_length=100, blank=True)
 
     def __unicode__(self):
         return self.name
