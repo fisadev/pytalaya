@@ -40,6 +40,31 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="/">Pytalaya</a>
+          {% if user.is_authenticated %}
+              <div class="btn-group pull-right">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="icon-user"></i>{{ user.username }}
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/account_settings">Account settings</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/logout">Sign Out</a></li>
+                </ul>
+              </div>
+          {% else %}
+              <div class="btn-group pull-right">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="icon-user"></i>Welcome!
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/login">Sign In</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/register">Create Account</a></li>
+                </ul>
+              </div>
+          {% endif %}
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
