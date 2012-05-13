@@ -6,7 +6,7 @@ class Team(models.Model):
     '''Team of people.'''
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
-    logo = models.ImageField(upload_to='logos')
+    logo = models.ImageField(upload_to='logos', blank=True, null=True)
     url = models.CharField(max_length=15, unique=True)
 
     admin_password = models.CharField(max_length=100, blank=True)
