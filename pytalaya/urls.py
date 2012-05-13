@@ -12,9 +12,8 @@ urlpatterns = patterns('app.views',
     url(r'^new_team/$', 'new_team', name='new_team'),
     url(r'^join_team/$', 'join_team', name='join_team'),
 
-    url(r'^team_status/$', 'team_status', name='team_status'),
-    url(r'^team_settings/$', 'team_settings', name='team_settings'),
-    url(r'^my_status/$', 'my_status', name='my_status'),
+    url(r'^team/$', 'team', name='team'),
+    url(r'^me/$', 'me', name='me'),
 )
 
 

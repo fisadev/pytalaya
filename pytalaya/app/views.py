@@ -28,15 +28,11 @@ def join_team(request):
     '''Join an existing team.'''
     return None
 
-def team_status(request):
+def team(request):
     '''View team status dashboard.'''
-    return None
+    return render(request, 'team.html', {})
 
-def team_settings(request):
-    '''Edit team settings.'''
-    return None
-
-def my_status(request):
+def me(request):
     '''Status reporting page.'''
     return None
 
