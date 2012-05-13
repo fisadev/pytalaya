@@ -9,11 +9,11 @@ urlpatterns = patterns('app.views',
     url(r'^$', 'home', name='home'),
     url(r'^contact/$', 'contact', name='contact'),
 
-    url(r'^new/$', 'new', name='new'),
-    url(r'^join/(\w+)?/?$', 'join', name='join'),
+    url(r'^new/$', 'new_team', name='new_team'),
+    url(r'^join/(\w+)?/?$', 'join_team', name='join_team'),
 
-    url(r'^team/$', 'team', name='team'),
-    url(r'^me/$', 'me', name='me'),
+    url(r'^team/$', 'team_status', name='team_status'),
+    url(r'^me/$', 'my_status', name='my_status'),
 )
 
 
