@@ -13,7 +13,7 @@ def contact(request):
     '''Contact page.'''
     return render(request, 'contact.html', {})
 
-def new_team(request):
+def new(request):
     '''Create new team.'''
     if request.method == 'POST':
         form = NewTeamForm(request.POST)
@@ -22,7 +22,7 @@ def new_team(request):
     else:
         form = NewTeamForm()
 
-    return render(request, 'new_team.html', {'form': form})
+    return render(request, 'new.html', {'form': form})
 
 def join(request, team=None):
     '''Join an existing team.'''
