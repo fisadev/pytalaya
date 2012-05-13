@@ -24,9 +24,9 @@ def new_team(request):
 
     return render(request, 'new_team.html', {'form': form})
 
-def join_team(request):
+def join(request, team=None):
     '''Join an existing team.'''
-    return None
+    return render(request, 'join.html', {})
 
 def team(request):
     '''View team status dashboard.'''
