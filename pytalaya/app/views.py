@@ -1,4 +1,6 @@
 #-*- coding:utf-8 -*-
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from forms import NewTeamForm
@@ -18,7 +20,8 @@ def new(request):
     if request.method == 'POST':
         form = NewTeamForm(request.POST)
         if form.is_valid():
-            team = form.save()
+            new_team = form.save()
+            return HttpResponseRedirect(reverse(team))
     else:
         form = NewTeamForm()
 
