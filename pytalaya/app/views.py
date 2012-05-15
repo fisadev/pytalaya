@@ -28,7 +28,7 @@ def new_team(request):
 
     return render(request, 'new_team.html', {'form': form})
 
-def join_team(request, team=None):
+def join_team(request, team_url=None):
     '''Join an existing team.'''
     return render(request, 'join_team.html', {})
 
