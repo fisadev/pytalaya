@@ -21,6 +21,7 @@ def new_team(request):
         form = NewTeamForm(request.POST)
         if form.is_valid():
             team = form.save()
+            request.session['team'] = team.id
             return HttpResponseRedirect(reverse(team_status))
     else:
         form = NewTeamForm()
@@ -33,7 +34,11 @@ def join_team(request, team=None):
 
 def team_status(request):
     '''View team status dashboard.'''
-    return render(request, 'team_status.html', {})
+    team = request.session.get('team', None)
+    if team is not None:
+        return render(request, 'team_status.html', {'team': team})
+    else:
+        return HttpResponseRedirect(reverse(join_team))
 
 def my_status(request):
     '''Status reporting page.'''
