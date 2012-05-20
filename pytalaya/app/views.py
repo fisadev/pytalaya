@@ -22,7 +22,7 @@ def new_team(request):
         if form.is_valid():
             team = form.save()
             request.session['team'] = team
-            return HttpResponseRedirect(reverse(team_status))
+            return HttpResponseRedirect(reverse(join_team, args=(team.url,)))
     else:
         form = NewTeamForm()
 
