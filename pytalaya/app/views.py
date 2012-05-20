@@ -3,8 +3,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from forms import NewTeamForm, JoinTeamForm
-from models import Team
+from app.forms import NewTeamForm, JoinTeamForm
+from app.models import Team
 
 
 def home(request):

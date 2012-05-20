@@ -1,6 +1,7 @@
 #-*- coding:utf-8 -*-
 from django.contrib import admin
-from models import Team, Status, Member
+
+from app.models import Team, Status, Member
 
 
 class TeamAdmin(admin.ModelAdmin):
