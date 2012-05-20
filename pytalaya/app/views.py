@@ -37,7 +37,7 @@ def join_team(request, team_url=None):
             password = form.cleaned_data['password']
             request.session['team'] = team
             if password == team.admin_password:
-                return HttpResponseRedirect(reverse(team_status, args=(team.url,)))
+                return HttpResponseRedirect(reverse(team_status))
             elif password == team.member_password:
                 return HttpResponseRedirect(reverse(my_status))
     else:
@@ -48,11 +48,11 @@ def join_team(request, team_url=None):
 
     return render(request, 'join_team.html', {'form': form})
 
-def team_status(request, team_url):
+def team_status(request):
     '''View team status dashboard.'''
     team = request.session.get('team', None)
-    if team is None or team.url != team_url:
-        return HttpResponseRedirect(reverse(join_team, args=(team_url,)))
+    if team is None:
+        return HttpResponseRedirect(reverse(join_team))
     else:
         return render(request, 'team_status.html', {})
 
