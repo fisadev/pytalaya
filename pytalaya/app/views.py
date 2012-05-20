@@ -5,6 +5,7 @@ from django.shortcuts import render
 
 from app.forms import NewTeamForm, JoinTeamForm
 from app.models import Team
+from app.utils import get_or_none
 
 
 def home(request):
@@ -43,8 +44,9 @@ def join_team(request, team_url=None):
     else:
         form = JoinTeamForm()
         if team_url is not None:
-            team = Team.objects.get(url=team_url)
-            form.initial['team_name'] = team.name
+            team = get_or_none(Team, url=team_url)
+            if team is not None:
+                form.initial['team_name'] = team.name
 
     return render(request, 'join_team.html', {'form': form})
 
