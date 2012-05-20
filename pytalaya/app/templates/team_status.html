@@ -16,5 +16,10 @@
 
     <div class="span8">
         <h1>TODO: groups and members</h1>
+        <ul>
+            {% for member in team.members %}
+                <li>{{ member.username }}: {{ member.status.name}}</li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}
