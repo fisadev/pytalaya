@@ -44,13 +44,13 @@ def join_team(request, team_url=None):
 
     return render(request, 'join_team.html', {'form': form})
 
-def team_status(request, team_url=None):
+def team_status(request, team_url):
     '''View team status dashboard.'''
     team = request.session.get('team', None)
-    if team is not None and (not team_url or team.url == team_url):
-        return render(request, 'team_status.html', {'team': team})
-    else:
+    if team is None or team.url != team_url:
         return HttpResponseRedirect(reverse(join_team, args=(team_url,)))
+    else:
+        return render(request, 'team_status.html', {'team': team})
 
 def my_status(request):
     '''Status reporting page.'''

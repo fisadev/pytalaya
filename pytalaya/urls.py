@@ -12,7 +12,7 @@ urlpatterns = patterns('app.views',
     url(r'^new/$', 'new_team', name='new_team'),
     url(r'^join/(\w+)?/?$', 'join_team', name='join_team'),
 
-    url(r'^team/(\w+)?/?$', 'team_status', name='team_status'),
+    url(r'^team/(\w+)/$', 'team_status', name='team_status'),
     url(r'^me/$', 'my_status', name='my_status'),
 )
 
