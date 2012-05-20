@@ -35,7 +35,7 @@ def join_team(request, team_url=None):
         if form.is_valid():
             team = form.cleaned_data['team']
             request.session['team'] = team
-            return HttpResponseRedirect(reverse(team_status, args=(team_url,)))
+            return HttpResponseRedirect(reverse(team_status, args=(team.url,)))
     else:
         form = JoinTeamForm()
         if team_url is not None:
