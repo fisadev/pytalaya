@@ -14,6 +14,8 @@ urlpatterns = patterns('app.views',
 
     url(r'^team/(\w+)/$', 'team_status', name='team_status'),
     url(r'^me/$', 'my_status', name='my_status'),
+
+    url(r'^leave/$', 'leave', name='leave'),
 )
 
 

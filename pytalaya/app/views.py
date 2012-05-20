@@ -50,9 +50,14 @@ def team_status(request, team_url):
     if team is None or team.url != team_url:
         return HttpResponseRedirect(reverse(join_team, args=(team_url,)))
     else:
-        return render(request, 'team_status.html', {'team': team})
+        return render(request, 'team_status.html', {})
 
 def my_status(request):
     '''Status reporting page.'''
     return None
+
+def leave(request):
+    '''Leave current team.'''
+    request.session['team'] = None
+    return HttpResponseRedirect(reverse(home))
 
