@@ -38,7 +38,7 @@ def team_status(request, team_url=None):
     if team is not None and (not team_url or team.url == team_url):
         return render(request, 'team_status.html', {'team': team})
     else:
-        return HttpResponseRedirect(reverse(join_team, args=team_url))
+        return HttpResponseRedirect(reverse(join_team, args=(team_url,)))
 
 def my_status(request):
     '''Status reporting page.'''
