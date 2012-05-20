@@ -34,8 +34,12 @@ def join_team(request, team_url=None):
         form = JoinTeamForm(request.POST)
         if form.is_valid():
             team = form.cleaned_data['team']
+            password = form.cleaned_data['password']
             request.session['team'] = team
-            return HttpResponseRedirect(reverse(team_status, args=(team.url,)))
+            if password == team.admin_password:
+                return HttpResponseRedirect(reverse(team_status, args=(team.url,)))
+            elif password == team.member_password:
+                return HttpResponseRedirect(reverse(my_status))
     else:
         form = JoinTeamForm()
         if team_url is not None:
