@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from forms import NewTeamForm
+from forms import NewTeamForm, JoinTeamForm
 from models import Team
 
 
@@ -30,7 +30,19 @@ def new_team(request):
 
 def join_team(request, team_url=None):
     '''Join an existing team.'''
-    return render(request, 'join_team.html', {})
+    if request.method == 'POST':
+        form = JoinTeamForm(request.POST)
+        if form.is_valid():
+            team = form.cleaned_data['team']
+            request.session['team'] = team
+            return HttpResponseRedirect(reverse(team_status, args=(team_url,)))
+    else:
+        form = JoinTeamForm()
+        if team_url is not None:
+            team = Team.objects.get(url=team_url)
+            form.initial['team_name'] = team.name
+
+    return render(request, 'join_team.html', {'form': form})
 
 def team_status(request, team_url=None):
     '''View team status dashboard.'''
