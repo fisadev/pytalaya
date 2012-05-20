@@ -5,6 +5,11 @@
     </div>
 
     <div class="span6">
-        <h1>TODO: join</h1>
+        <h1>Join Team</h1>
+
+        <form method="POST">{% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn" type="SUBMIT" value="Join!"/>
+        </form>
     </div>
 {% endblock %}
