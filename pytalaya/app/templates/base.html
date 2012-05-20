@@ -47,6 +47,13 @@
                             <li><a href="{% url contact %}">Contact</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
+                    {% if team %}
+                        <div class="nav-colapse pull-right">
+                            <ul class="nav">
+                                <li><a href="#">Leave Team</a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
