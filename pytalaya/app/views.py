@@ -18,31 +18,25 @@ def contact(request):
 
 def new_team(request):
     '''Create new team.'''
-    if request.method == 'POST':
-        form = NewTeamForm(request.POST)
-        if form.is_valid():
-            team = form.save()
-            request.session['team'] = team
-            return HttpResponseRedirect(reverse(join_team, args=(team.url,)))
-    else:
-        form = NewTeamForm()
-
+    form = NewTeamForm(request.POST or None)
+    if form.is_valid():
+        team = form.save()
+        request.session['team'] = team
+        return HttpResponseRedirect(reverse(join_team, args=(team.url,)))
     return render(request, 'new_team.html', {'form': form})
 
 def join_team(request, team_url=None):
     '''Join an existing team.'''
-    if request.method == 'POST':
-        form = JoinTeamForm(request.POST)
-        if form.is_valid():
-            team = form.cleaned_data['team']
-            password = form.cleaned_data['password']
-            request.session['team'] = team
-            if password == team.admin_password:
-                return HttpResponseRedirect(reverse(team_status))
-            elif password == team.member_password:
-                return HttpResponseRedirect(reverse(my_status))
-    else:
-        form = JoinTeamForm()
+    form = JoinTeamForm(request.POST or None)
+    if form.is_valid():
+        team = form.cleaned_data['team']
+        password = form.cleaned_data['password']
+        request.session['team'] = team
+        if password == team.admin_password:
+            return HttpResponseRedirect(reverse(team_status))
+        elif password == team.member_password:
+            return HttpResponseRedirect(reverse(my_status))
+    elif request.method == 'GET':
         if team_url is not None:
             team = get_or_none(Team, url=team_url)
             if team is not None:
