@@ -18,15 +18,11 @@ def contact(request):
 
 def new_team(request):
     '''Create new team.'''
-    if request.method == 'POST':
-        form = NewTeamForm(request.POST)
-        if form.is_valid():
-            team = form.save()
-            request.session['team'] = team
-            return HttpResponseRedirect(reverse(join_team, args=(team.url,)))
-    else:
-        form = NewTeamForm()
-
+    form = NewTeamForm(request.POST or None)
+    if form.is_valid():
+        team = form.save()
+        request.session['team'] = team
+        return HttpResponseRedirect(reverse(join_team, args=(team.url,)))
     return render(request, 'new_team.html', {'form': form})
 
 def join_team(request, team_url=None):
