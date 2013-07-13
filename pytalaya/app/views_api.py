@@ -4,7 +4,7 @@ from datetime import datetime
 
 from django.http import HttpResponse
 
-from app.models import Team, Member
+from app.models import Member
 
 
 def json_response(data):
