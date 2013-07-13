@@ -3,12 +3,17 @@ import time
 from datetime import datetime
 
 from django.http import HttpResponse
+from django.core.serializers import serialize
 
 from app.models import Member
 
 
-def json_response(data):
-    return HttpResponse(json.dumps(data),
+def json_response(data, orm_objects=True):
+    if orm_objects:
+        json_data = serialize('json', data)
+    else:
+        json_data = json.dumps(data)
+    return HttpResponse(json_data,
                         content_type="application/json")
 
 
@@ -39,7 +44,7 @@ def events(request):
         while True:
             changed_members = team.members.filter(status_date__gte=last_update)
             for member in changed_members:
-                yield 'data: %s\n\n' % json.dumps(member)
+                yield 'data: %s\n\n' % serialize('json', [member, ])
             time.sleep(5)
 
     return HttpResponse(event_stream(), mimetype="text/event-stream")

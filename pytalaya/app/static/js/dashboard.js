@@ -5,7 +5,7 @@ function DashboardCtrl($scope) {
   var source = new EventSource('/api/events/');
   source.onmessage = function(event) {
     $scope.$apply(function() {
-      updated_member = JSON.parse(event.data);
+      updated_member = JSON.parse(event.data)[0];
 
       var length = $source.members.length,
           member = null,
