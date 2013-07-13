@@ -9,6 +9,7 @@ class Team(models.Model):
 
 
 class Group(models.Model):
+    team = models.ForeignKey(Team)
     name = models.CharField(max_length=255)
 
 
