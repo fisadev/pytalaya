@@ -4,5 +4,5 @@ from pytalaya import views
 
 urlpatterns = patterns('',
     url(r'^t/(?P<slug>[\w-]+)/$', views.dashboard),
-    url(r'^api/members/(?P<slug>[\w-]+)/$', 'pytalaya.views_api.members', name='api_members'),
+    url(r'^api/members/(?P<team_slug>[\w-]+)/$', 'pytalaya.views_api.members', name='api_members'),
 )
