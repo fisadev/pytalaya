@@ -1,6 +1,6 @@
 from .forms import JoinForm, TeamForm
 from .models import Team, Member
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
@@ -19,7 +19,9 @@ def dashboard(request, team_slug):
 
 
 def create(request):
-    '''Creates a new team'''
+    '''
+    Creates a new team.
+    '''
 
     if request.method == "POST":
         form = TeamForm(request.POST)
@@ -32,6 +34,10 @@ def create(request):
 
 
 def join(request, team_slug=None):
+    '''
+    Join to team and redirect to dashboard of the team.
+    '''
+
     if request.method == 'POST':
         form = JoinForm(request.POST)
         if form.is_valid():
