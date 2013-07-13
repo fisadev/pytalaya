@@ -8,7 +8,7 @@ class Team(models.Model):
     password = models.CharField(max_length=100)
 
 
-class Group(models.Model):
+class Area(models.Model):
     team = models.ForeignKey(Team)
     name = models.CharField(max_length=255)
 
@@ -27,6 +27,6 @@ class Member(models.Model):
 
     username = models.SlugField(max_length=255)
     team = models.ForeignKey(Team)
-    group = models.ForeignKey(Group, null=True, blank=True)
+    area = models.ForeignKey(Area, null=True, blank=True)
     status = models.CharField(max_length=50, choices=STATUSES, default=STATUS_OK)
     status_info = models.TextField()
