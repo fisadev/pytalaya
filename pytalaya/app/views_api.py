@@ -10,8 +10,8 @@ def json_response(data):
                         content_type="application/json")
 
 
-def members(request, team_slug):
-    team = Team.objects.get(slug=team_slug)
+def members(request):
+    team = request.session['member'].team
     members = team.members.select_related('area')
 
     return json_response(members)
