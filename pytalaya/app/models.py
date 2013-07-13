@@ -32,3 +32,4 @@ class Member(models.Model):
     area = models.ForeignKey(Area, null=True, blank=True)
     status = models.CharField(max_length=50, choices=STATUSES, default=STATUS_OK)
     status_info = models.TextField()
+    status_date = models.DateTimeField(auto_now=True)
