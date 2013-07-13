@@ -1,7 +1,7 @@
 from .forms import JoinForm, TeamForm
 from .models import Team, Member
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 
@@ -12,7 +12,9 @@ def dashboard(request, team_slug):
     '''
     member = request.session.get('member')
     if member and team_slug == member.team.slug:
-        return HttpResponse("Ok")
+        return render(request,
+                      'dashboard.html',
+                      {'team': member.team, 'member': member})
     else:
         return HttpResponseRedirect(reverse('join', kwargs={'team_slug': team_slug}))
 
