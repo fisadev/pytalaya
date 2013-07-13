@@ -43,8 +43,11 @@ def events(request):
         last_update = datetime(1901, 1, 1)
         while True:
             changed_members = team.members.filter(status_date__gte=last_update)
+            last_update = datetime.now()
+
             for member in changed_members:
                 yield 'data: %s\n\n' % serialize('json', [member, ])
+
             time.sleep(5)
 
     return HttpResponse(event_stream(), mimetype="text/event-stream")
