@@ -26,7 +26,7 @@ def create(request):
         form = TeamForm()
 
     ctx = {'form':form}
-    return render_to_response('', ctx, context_instance=RequestContext(request))
+    return render_to_response('create.html', ctx, context_instance=RequestContext(request))
 
 
 
