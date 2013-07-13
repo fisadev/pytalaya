@@ -3,6 +3,7 @@ from .models import Team, Member
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
+from django.template import RequestContext
 
 
 def dashboard(request, team_slug):
@@ -23,7 +24,7 @@ def create(request):
         form = TeamForm(request.POST)
         if form.is_valid():
             team = form.save()
-        HttpResponseRedirect('/join')
+        return HttpResponseRedirect('/join')
     else:
         form = TeamForm()
 
