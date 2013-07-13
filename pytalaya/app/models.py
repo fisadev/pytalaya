@@ -9,7 +9,7 @@ class Team(models.Model):
 
 
 class Area(models.Model):
-    team = models.ForeignKey(Team)
+    team = models.ForeignKey(Team, related_name='areas')
     name = models.CharField(max_length=255)
 
 
@@ -28,8 +28,8 @@ class Member(models.Model):
     )
 
     username = models.SlugField(max_length=255)
-    team = models.ForeignKey(Team)
-    area = models.ForeignKey(Area, null=True, blank=True)
+    team = models.ForeignKey(Team, related_name='members')
+    area = models.ForeignKey(Area, related_name='members', null=True, blank=True)
     status = models.CharField(max_length=50, choices=STATUSES, default=STATUS_OK)
     status_info = models.TextField()
     status_date = models.DateTimeField(auto_now=True)
