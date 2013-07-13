@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+    <script src="{{ STATIC_URL }}js/jquery-2.0.2.min.js"></script>
+    <script src="{{ STATIC_URL }}js/angular.min.js"></script>
+    <script src="{{ STATIC_URL }}js/EventSource.js"></script>
+    <script src="{{ STATIC_URL }}js/dashboard.js"></script>
+{% endblock %}
+
+{% block extra_title %}- {{ team.name }}{% endblock %}
+
+{% block content %}
+    <div ng-app><div ng-controller="DashboardCtrl">
+    {% verbatim %}
+
+      <ul>
+        <li ng-repeat="member in members">
+          <p>{{ member.name }}: {{ member.status }} ({{ member.status_info }})</p>
+        </li>
+      </ul>
+
+    {% endverbatim %}
+    </div></div>
+{% endblock %}
