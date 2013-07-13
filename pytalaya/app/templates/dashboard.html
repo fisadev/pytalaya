@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block extra_head %}
-    <script src="{{ STATIC_URL }}js/jquery-2.0.2.min.js"></script>
     <script src="{{ STATIC_URL }}js/angular.min.js"></script>
     <script src="{{ STATIC_URL }}js/EventSource.js"></script>
     <script src="{{ STATIC_URL }}js/dashboard.js"></script>
@@ -15,7 +14,7 @@
 
       <ul>
         <li ng-repeat="member in members">
-          <p>{{ member.name }}: {{ member.status }} ({{ member.status_info }})</p>
+          <p>{{ member.fields.username }}: {{ member.fields.status }} ({{ member.fields.status_info }})</p>
         </li>
       </ul>
 

@@ -13,7 +13,7 @@ function DashboardCtrl($scope) {
 
       for (var i = 0; i < length; i++) {
         member = $scope.members[i];
-        if (member.id === updated_member.id) {
+        if (member.pk === updated_member.pk) {
           $scope.members[i] = updated_member;
           added = true;
           i = length;
