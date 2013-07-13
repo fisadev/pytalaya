@@ -5,6 +5,13 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
 
+def home(request):
+    '''
+    Home view.
+    '''
+    return render(request, 'home.html', {})
+
+
 def dashboard(request, team_slug):
     '''
     Show dashbard of a team or redirect to join view.
