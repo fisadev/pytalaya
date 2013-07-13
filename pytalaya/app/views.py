@@ -25,7 +25,7 @@ def create(request):
         form = TeamForm(request.POST)
         if form.is_valid():
             team = form.save()
-        return HttpResponseRedirect('/join')
+	    return HttpResponseRedirect(reverse('join', team.slug))
     else:
         form = TeamForm()
     return render(request, 'create.html', {'form': form})
