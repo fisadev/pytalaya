@@ -1,6 +1,9 @@
 <html>
   <head>
     <title>Pytalaya</title>
+    <link rel="icon" type="image/png" href="{{ STATIC_URL }}img/icon.png" />
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/icon.png"/>
+    <link rel="apple-touch-icon" href="{{ STATIC_URL }}img/icon.png"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/styles.css">
     <script src="{{ STATIC_URL }}js/jquery-2.0.2.min.js"></script>
     {% block extra_head %}
@@ -9,7 +12,9 @@
   <body>
     <div class="top-bar">
       <div class="title-bar">
-        <h1><a href="/">Pytalaya {% block extra_title %}{% endblock %}</a><h1>
+        <h1><img class="home" src="{{ STATIC_URL }}img/icon.png" />
+            <a href="/">Pytalaya {% block extra_title %}{% endblock %}</a>
+        <h1>
       </div>
       <div class="nav-bar">
         <ul>
