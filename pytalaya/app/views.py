@@ -12,7 +12,7 @@ def dashboard(request, team_slug):
     '''
     member = request.session.get('member')
     if member and team_slug == member.team.slug:
-        return HttpResponse("Ok")
+        return render(request, 'dashboard.html', {})
     else:
         return HttpResponseRedirect(reverse('join', kwargs={'team_slug': team_slug}))
 
