@@ -18,11 +18,13 @@ class Member(models.Model):
     STATUS_FREE = 'free'
     STATUS_WARNING = 'warning'
     STATUS_PROBLEM = 'problem'
+    STATUS_IDLE = 'idle'
     STATUSES = (
         (STATUS_OK, 'Ok'),
         (STATUS_FREE, 'Free'),
         (STATUS_WARNING, 'Warning'),
         (STATUS_PROBLEM, 'Problem'),
+        (STATUS_IDLE, 'Idle'),
     )
 
     username = models.SlugField(max_length=255)
@@ -30,3 +32,4 @@ class Member(models.Model):
     area = models.ForeignKey(Area, null=True, blank=True)
     status = models.CharField(max_length=50, choices=STATUSES, default=STATUS_OK)
     status_info = models.TextField()
+    status_date = models.DateTimeField(auto_now=True)
