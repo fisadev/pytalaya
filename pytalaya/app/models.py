@@ -5,7 +5,7 @@ class Team(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     private = models.BooleanField()
-    password = models.CharField(max_length=100)
+    password = models.CharField(null=True,blank=True,max_length=100)
 
 
 class Area(models.Model):
