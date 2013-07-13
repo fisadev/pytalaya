@@ -31,8 +31,8 @@ def status(request, member_id):
     return json_response(member)
 
 
-def events(request, team_slug):
-    team = Team.objects.get(slug=team_slug)
+def events(request):
+    team = request.session['member'].team
 
     def event_stream():
         last_update = datetime(1901, 1, 1)
