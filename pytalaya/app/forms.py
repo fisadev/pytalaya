@@ -11,13 +11,7 @@ class TeamForm(forms.ModelForm):
 class JoinForm(forms.Form):
     user_name = forms.CharField(max_length=100)
     team = forms.SlugField(max_length=255)
-
-    def clean_user_name(self):
-        #user must not exists
-        user = self.cleaned_data['user_name']
-        if Member.objects.filter(username=user).exists():
-            raise forms.ValidationError('User already exists. Choose another.')
-        return user
+    password = forms.CharField(required=False, max_length=100)
 
     def clean_team(self):
         #team must exists
@@ -25,3 +19,23 @@ class JoinForm(forms.Form):
         if not Team.objects.filter(slug=team).exists():
             raise forms.ValidationError('Team must exists')
         return team
+
+    def clean(self):
+        cleaned_data = super(JoinForm, self).clean()
+        password = cleaned_data.get("password")
+        team = cleaned_data.get("team")
+        user = self.cleaned_data.get("user_name")
+
+        team = Team.objects.get(slug=team)
+
+        #user must not exists in this team
+        if Member.objects.filter(username=user, team=team).exists():
+            raise forms.ValidationError('User already exists in this team. Choose another username.')
+
+        if team.private and team.password != password:
+            msg = "Incorrect password."
+            self._errors["password"] = self.error_class([msg])
+            del cleaned_data["password"]
+
+        return cleaned_data
+
