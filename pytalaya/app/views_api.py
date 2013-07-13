@@ -1,4 +1,6 @@
 import json
+import time
+from datetime import datetime
 
 from django.http import HttpResponse
 
@@ -26,3 +28,17 @@ def status(request, member_id):
         member.save()
 
     return json_response(member)
+
+
+def events(request, team_slug):
+    team = Team.objects.get(slug=team_slug)
+
+    def event_stream():
+        last_update = datetime(1901, 1, 1)
+        while True:
+            changed_members = team.members.filter(status_date__gte=last_update)
+            for member in changed_members:
+                yield 'data: %s\n\n' % json.dumps(member)
+            time.sleep(5)
+
+    return HttpResponse(event_stream(), mimetype="text/event-stream")

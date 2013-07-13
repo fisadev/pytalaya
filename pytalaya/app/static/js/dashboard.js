@@ -2,7 +2,7 @@ function DashboardCtrl($scope) {
   $scope.members = [];
 
   //event stream client
-  var source = new EventSource('/api/event_stream/');
+  var source = new EventSource('/api/events/');
   source.onmessage = function(event) {
     $scope.$apply(function() {
       data = JSON.parse(event.data);
