@@ -7,5 +7,7 @@ from app.models import Team
 
 def members(self, slug):
     team = Team.objects.get(slug=slug)
-    return HttpResponse(json.dumps(team.members.select_related('area')),
+    members = team.members.select_related('area')
+
+    return HttpResponse(json.dumps(members),
                         content_type="application/json")
