@@ -3,9 +3,12 @@ from django import forms
 from app.models import Team, Member
 
 
-class TeamForm(forms.ModelForm):
-    class Meta:
-        model = Team
+class TeamForm(forms.Form):
+    slug = forms.SlugField(max_length=255)
+    name = forms.CharField(max_length=255)
+    private = forms.BooleanField(required=False)
+    password = forms.CharField(required=False,max_length=100)
+    area_name = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows':6, 'cols':100}))
 
 
 class JoinForm(forms.Form):
