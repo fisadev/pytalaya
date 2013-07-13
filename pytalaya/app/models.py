@@ -2,13 +2,14 @@ from django.db import models
 
 
 class Team(models.Model):
-    slug = models.SlugField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     private = models.BooleanField()
     password = models.CharField(max_length=100)
 
 
 class Group(models.Model):
+    team = models.ForeignKey(Team)
     name = models.CharField(max_length=255)
 
 
