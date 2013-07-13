@@ -7,7 +7,7 @@ function DashboardCtrl($scope) {
     $scope.$apply(function() {
       updated_member = JSON.parse(event.data)[0];
 
-      var length = $source.members.length,
+      var length = $scope.members.length,
           member = null,
           added = false;
 
