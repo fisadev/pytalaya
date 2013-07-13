@@ -1,7 +1,7 @@
 from .forms import JoinForm, TeamForm
 from .models import Team, Member
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 
