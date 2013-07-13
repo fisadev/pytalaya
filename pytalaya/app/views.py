@@ -45,8 +45,7 @@ def join(request, team_slug=None):
             team_slug = form.cleaned_data['team']
             team = Team.objects.get(slug=team_slug)
             user = Member(username=user_name, team=team)
-            #TODO
-            #is a private team? need password
+            user.save()
             request.session['member'] = user
             return HttpResponseRedirect(reverse('dashboard', kwargs={'team_slug': team_slug}))
     else:
