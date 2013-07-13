@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from pytalaya.models import Team
+from app.models import Team
 
 class TeamForm(forms.ModelForm):
     class Meta:
