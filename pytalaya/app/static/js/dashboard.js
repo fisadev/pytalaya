@@ -5,8 +5,24 @@ function DashboardCtrl($scope) {
   var source = new EventSource('/api/events/');
   source.onmessage = function(event) {
     $scope.$apply(function() {
-      data = JSON.parse(event.data);
-      $scope.members = data;
+      updated_member = JSON.parse(event.data);
+
+      var length = $source.members.length,
+          member = null,
+          added = false;
+
+      for (var i = 0; i < length; i++) {
+        member = $scope.members[i];
+        if (member.id === updated_member.id) {
+          $scope.members[i] = updated_member;
+          added = true;
+          i = length;
+        }
+      }
+
+      if (!added) {
+        $scope.members.push(updated_member);
+      }
     });
   };
 }
