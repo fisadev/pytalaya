@@ -8,6 +8,7 @@ urlpatterns = patterns('app.views',
 )
 
 urlpatterns += patterns('app.views_api',
-    url(r'^api/members/(?P<team_slug>[\w-]+)/$', 'members', name='api_members'),
+    url(r'^api/members/$', 'members', name='api_members'),
     url(r'^api/status/(?P<member_id>\d+)/$', 'status', name='api_status'),
+    url(r'^api/events/$', 'events', name='api_events'),
 )
