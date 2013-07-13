@@ -25,6 +25,7 @@ def status(request, member_id):
     if request.method == 'POST':
         member.status = request.POST.get('status', Member.STATUS_OK)
         member.status_info = request.POST.get('status_info', '')
+        member.status_date = datetime.now()
         member.save()
 
     return json_response(member)
