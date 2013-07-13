@@ -3,7 +3,6 @@ from .models import Team, Member
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
-from django.template import RequestContext
 
 
 def dashboard(request, team_slug):
@@ -27,10 +26,7 @@ def create(request):
         return HttpResponseRedirect('/join')
     else:
         form = TeamForm()
-
-    ctx = {'form':form}
-    return render_to_response('create.html', ctx, context_instance=RequestContext(request))
-
+    return render(request, 'create.html', {'form': form})
 
 def join(request, team_slug=None):
     if request.method == 'POST':
