@@ -3,5 +3,8 @@ from pytalaya import views
 
 
 urlpatterns = patterns('',
+
     url(r'^t/(?P<slug>[\w-]+)/$', views.dashboard),
+
+
 )
