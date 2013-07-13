@@ -28,6 +28,7 @@ def create(request):
         form = TeamForm()
     return render(request, 'create.html', {'form': form})
 
+
 def join(request, team_slug=None):
     if request.method == 'POST':
         form = JoinForm(request.POST)
