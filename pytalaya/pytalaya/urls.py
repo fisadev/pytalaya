@@ -3,10 +3,13 @@ from app import views
 
 
 
-urlpatterns = patterns('',
-    url(r'^t/(?P<team_slug>[\w-]+)/$', 'app.views.dashboard', name='dashboard'),
-    url(r'^join/(?P<team_slug>[\w-]+)?/?$', 'app.views.join', name='join'),
-    url(r'^api/members/(?P<team_slug>[\w-]+)/$', 'app.views_api.members', name='api_members'),
-    url(r'^api/status/(?P<member_id>\d+)/$', 'app.views_api.status', name='api_status'),
+urlpatterns = patterns('app.views',
+    url(r'^t/(?P<team_slug>[\w-]+)/$', 'dashboard', name='dashboard'),
+    url(r'^join/(?P<team_slug>[\w-]+)?/?$', 'join', name='join'),
     url(r'^create/$', 'create', name='create'),
+)
+
+urlpatterns += patterns('app.views_api',
+    url(r'^api/members/(?P<team_slug>[\w-]+)/$', 'members', name='api_members'),
+    url(r'^api/status/(?P<member_id>\d+)/$', 'status', name='api_status'),
 )
