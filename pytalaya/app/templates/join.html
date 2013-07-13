@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block extra_head %}{% endblock %}
+{% block extra_title %} - Join{% endblock %}
+
+{% block content %}
+    <form action="/join/" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" />
+    </form>
+{% endblock %}

@@ -1,38 +1,35 @@
-#-*- coding:utf-8 -*-
 from django.db import models
 
 
 class Team(models.Model):
-    '''Team of people.'''
-    name = models.CharField(max_length=100, unique=True)
-    description = models.TextField()
-    logo = models.ImageField(upload_to='logos', blank=True, null=True)
-    url = models.CharField(max_length=15, unique=True)
-
-    admin_password = models.CharField(max_length=100, blank=True)
-    member_password = models.CharField(max_length=100, blank=True)
-    recovery_email = models.CharField(max_length=100, blank=True)
-
-    def __unicode__(self):
-        return self.name
+    slug = models.SlugField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
+    private = models.BooleanField()
+    password = models.CharField(null=True, blank=True, max_length=100)
 
 
-class Status(models.Model):
-    '''Possible status of a team member.'''
-    team = models.ForeignKey(Team)
-
-    name = models.CharField(max_length=100)
-    color = models.CharField(max_length=25)
+class Area(models.Model):
+    team = models.ForeignKey(Team, related_name='areas')
+    name = models.CharField(max_length=255)
 
 
 class Member(models.Model):
-    '''A team member.'''
-    team = models.ForeignKey(Team)
-    username = models.CharField(max_length=100)
+    STATUS_OK = 'ok'
+    STATUS_FREE = 'free'
+    STATUS_WARNING = 'warning'
+    STATUS_PROBLEM = 'problem'
+    STATUS_IDLE = 'idle'
+    STATUSES = (
+        (STATUS_OK, 'Ok'),
+        (STATUS_FREE, 'Free'),
+        (STATUS_WARNING, 'Warning'),
+        (STATUS_PROBLEM, 'Problem'),
+        (STATUS_IDLE, 'Idle'),
+    )
 
-    group_tags = models.TextField()
-
-    status = models.ForeignKey(Status)
-    status_extra = models.TextField()
+    username = models.SlugField(max_length=255)
+    team = models.ForeignKey(Team, related_name='members')
+    area = models.ForeignKey(Area, related_name='members', null=True, blank=True)
+    status = models.CharField(max_length=50, choices=STATUSES, default=STATUS_OK)
+    status_info = models.TextField()
     status_date = models.DateTimeField(auto_now=True)
-

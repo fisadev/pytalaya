@@ -1,32 +1,41 @@
-#-*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
 from django import forms
-from django.forms import ModelForm
-
-from app.models import Team
-from app.utils import get_or_none
+from app.models import Team, Member
 
 
-class NewTeamForm(ModelForm):
+class TeamForm(forms.ModelForm):
     class Meta:
         model = Team
 
-class JoinTeamForm(forms.Form):
-    team_name = forms.CharField()
-    username = forms.CharField(max_length=100)
-    password = forms.CharField(widget=forms.PasswordInput(render_value=False))
+
+class JoinForm(forms.Form):
+    user_name = forms.CharField(max_length=100)
+    team = forms.SlugField(max_length=255)
+    password = forms.CharField(required=False, max_length=100)
+
+    def clean_team(self):
+        #team must exists
+        team = self.cleaned_data['team']
+        if not Team.objects.filter(slug=team).exists():
+            raise forms.ValidationError('Team must exists')
+        return team
 
     def clean(self):
-        cleaned_data = super(JoinTeamForm, self).clean()
-        team_name = cleaned_data.get('team_name')
-        password = cleaned_data.get('password')
+        cleaned_data = super(JoinForm, self).clean()
+        password = cleaned_data.get("password")
+        team = cleaned_data.get("team")
+        user = self.cleaned_data.get("user_name")
 
-        team = get_or_none(Team, name=team_name)
-        if team is None:
-            raise forms.ValidationError("That team does not exists!")
-        else:
-            if password not in (team.admin_password, team.member_password):
-                raise forms.ValidationError("Invalid password!")
+        team = Team.objects.get(slug=team)
 
-        cleaned_data['team'] = team
+        #user must not exists in this team
+        if Member.objects.filter(username=user, team=team).exists():
+            raise forms.ValidationError('User already exists in this team. Choose another username.')
+
+        if team.private and team.password != password:
+            msg = "Incorrect password."
+            self._errors["password"] = self.error_class([msg])
+            del cleaned_data["password"]
+
         return cleaned_data
 

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block extra_title %}- create new team{% endblock %}
+
+{% block content %}
+    <form action="." method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <br>
+        <button type="submit">Create</button>
+    </form>
+{% endblock %}

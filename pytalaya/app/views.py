@@ -1,69 +1,61 @@
-#-*- coding:utf-8 -*-
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from .forms import JoinForm, TeamForm
+from .models import Team, Member
 from django.shortcuts import render
-
-from app.forms import NewTeamForm, JoinTeamForm
-from app.models import Team
-from app.utils import get_or_none
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 
 def home(request):
-    '''Home page.'''
+    '''
+    Home view.
+    '''
     return render(request, 'home.html', {})
 
-def contact(request):
-    '''Contact page.'''
-    return render(request, 'contact.html', {})
 
-def new_team(request):
-    '''Create new team.'''
-    if request.method == 'POST':
-        form = NewTeamForm(request.POST)
+def dashboard(request, team_slug):
+    '''
+    Show dashbard of a team or redirect to join view.
+    '''
+    member = request.session.get('member')
+    if member and team_slug == member.team.slug:
+        return render(request,
+                      'dashboard.html',
+                      {'team': member.team, 'member': member})
+    else:
+        return HttpResponseRedirect(reverse('join', kwargs={'team_slug': team_slug}))
+
+
+def create(request):
+    '''
+    Creates a new team.
+    '''
+
+    if request.method == "POST":
+        form = TeamForm(request.POST)
         if form.is_valid():
             team = form.save()
-            request.session['team'] = team
-            return HttpResponseRedirect(reverse(join_team, args=(team.url,)))
+            return HttpResponseRedirect(reverse('join', kwargs={'team_slug': team.slug}))
     else:
-        form = NewTeamForm()
+        form = TeamForm()
+    return render(request, 'create.html', {'form': form})
 
-    return render(request, 'new_team.html', {'form': form})
 
-def join_team(request, team_url=None):
-    '''Join an existing team.'''
+def join(request, team_slug=None):
+    '''
+    Join to team and redirect to dashboard of the team.
+    '''
+
     if request.method == 'POST':
-        form = JoinTeamForm(request.POST)
+        form = JoinForm(request.POST)
         if form.is_valid():
-            team = form.cleaned_data['team']
-            password = form.cleaned_data['password']
-            request.session['team'] = team
-            if password == team.admin_password:
-                return HttpResponseRedirect(reverse(team_status))
-            elif password == team.member_password:
-                return HttpResponseRedirect(reverse(my_status))
+            user_name = form.cleaned_data['user_name']
+            team_slug = form.cleaned_data['team']
+            team = Team.objects.get(slug=team_slug)
+            user = Member(username=user_name, team=team)
+            user.save()
+            request.session['member'] = user
+            return HttpResponseRedirect(reverse('dashboard', kwargs={'team_slug': team_slug}))
     else:
-        form = JoinTeamForm()
-        if team_url is not None:
-            team = get_or_none(Team, url=team_url)
-            if team is not None:
-                form.initial['team_name'] = team.name
-
-    return render(request, 'join_team.html', {'form': form})
-
-def team_status(request):
-    '''View team status dashboard.'''
-    team = request.session.get('team', None)
-    if team is None:
-        return HttpResponseRedirect(reverse(join_team))
-    else:
-        return render(request, 'team_status.html', {})
-
-def my_status(request):
-    '''Status reporting page.'''
-    return None
-
-def leave(request):
-    '''Leave current team.'''
-    request.session['team'] = None
-    return HttpResponseRedirect(reverse(home))
-
+        form = JoinForm()
+        form.fields['team'].initial = team_slug
+    return render(request, 'join.html', {'form': form})
