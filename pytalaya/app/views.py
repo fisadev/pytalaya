@@ -1,18 +1,19 @@
+from .forms import JoinForm, TeamForm
+from .models import Team, Member
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
-from django.shortcuts import render_to_response
-from django.pytalaya.forms import TeamForm
 
-def dashboard(request, slug):
+
+def dashboard(request, team_slug):
     '''
     Show dashbard of a team or redirect to join view.
     '''
     member = request.session.get('member')
-    if member and slug == member.team.slug:
-        pass
-        #return HttpResponse()
+    if member and team_slug == member.team.slug:
+        return HttpResponse("Ok")
     else:
-        return HttpResponseRedirect(reverse('join', kwargs={'team_slug': slug}))
+        return HttpResponseRedirect(reverse('join', kwargs={'team_slug': team_slug}))
 
 
 def create(request):
@@ -30,4 +31,24 @@ def create(request):
     return render_to_response('create.html', ctx, context_instance=RequestContext(request))
 
 
-
+def join(request, team_slug=None):
+    if request.method == 'POST':
+        form = JoinForm(request.POST)
+        if form.is_valid():
+            user_name = form.cleaned_data['user_name']
+            team_slug = form.cleaned_data['team']
+            #TODO
+            #if user exists then error
+            #else create
+            t2 = Team(slug=team_slug, name='TeamTest', private=False, password='')
+            t2.save()
+            team = Team.objects.get(slug=team_slug)
+            user = Member(username=user_name, team=team)
+            #team exists?
+            #is a private team? need password
+            request.session['member'] = user
+            return HttpResponseRedirect(reverse('dashboard', kwargs={'team_slug': team_slug}))
+    else:
+        form = JoinForm()
+        form.fields['team'].initial = team_slug
+    return render(request, 'join.html', {'form': form})
