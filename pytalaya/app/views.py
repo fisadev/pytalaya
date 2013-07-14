@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from .forms import JoinForm, TeamForm
-from .models import Team, Member, Area
+from app.forms import JoinForm, TeamForm
+from app.models import Team, Member, Area
 
 
 def home(request):
