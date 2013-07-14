@@ -1,8 +1,9 @@
-from .forms import JoinForm, TeamForm
-from .models import Team, Member, Area
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+
+from .forms import JoinForm, TeamForm
+from .models import Team, Member, Area
 
 
 def home(request):
@@ -33,18 +34,17 @@ def create(request):
     if request.method == "POST":
         form = TeamForm(request.POST)
         if form.is_valid():
-            t = Team(
-                slug = form.cleaned_data['slug'],
-                name = form.cleaned_data['name'],
-                private = form.cleaned_data['private'],
-                password = form.cleaned_data['password'], 
-            )	
-            t.save()	
+            t = Team(slug=form.cleaned_data['slug'],
+                     name=form.cleaned_data['name'],
+                     private=form.cleaned_data['private'],
+                     password=form.cleaned_data['password'],
+                    )
+            t.save()
             area_names = form.cleaned_data['area_name']
             area_list = area_names.split('\n')
             for a in area_list:
                 area = Area(team=t, name=a)
-		area.save()
+                area.save()
             return HttpResponseRedirect(reverse('join', kwargs={'team_slug': t.slug}))
     else:
         form = TeamForm()
