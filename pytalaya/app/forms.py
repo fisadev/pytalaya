@@ -13,12 +13,10 @@ class TeamForm(forms.Form):
 
     def clean_slug(self): 
         # slug must be unique
-        try:
-          team = Team.objects.get(slug=self.data['slug'])
-        except Team.DoesNotExist:
-            return self.data['slug']
-        raise forms.ValidationError('Slug must be unique')
-    
+        slug = self.cleaned_data['slug']
+        if Team.objects.filter(slug=slug).exists():
+            raise forms.ValidationError('Slug must be unique')
+        return slug	
 
 
 class JoinForm(forms.Form):
