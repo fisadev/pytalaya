@@ -11,6 +11,15 @@ class TeamForm(forms.Form):
     password = forms.CharField(required=False,max_length=100)
     area_name = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows':6, 'cols':100}))
 
+    def clean_slug(self): 
+        # slug must be unique
+        try:
+          team = Team.objects.get(slug=self.data['slug'])
+        except Team.DoesNotExist:
+            return self.data['slug']
+        raise forms.ValidationError('Slug must be unique')
+    
+
 
 class JoinForm(forms.Form):
     user_name = forms.CharField(max_length=100)
