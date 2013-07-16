@@ -1,4 +1,8 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
+{% block extra_head %}
+    <script src="{{ STATIC_URL }}js/create.js"></script>
+{% endblock %}
 
 {% block extra_title %}- create new team{% endblock %}
 
